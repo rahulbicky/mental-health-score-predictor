@@ -2,11 +2,13 @@
   "use strict";
 
   // ─── API Configuration ────────────────────────────────────────────────────
-  // When the frontend is served by FastAPI (same origin), keep this as "".
-  // After deploying to Render as a separate Static Site, change this to your
-  // backend URL, e.g.:
-  //   const API_BASE = "https://mental-health-predictor.onrender.com";
-  const API_BASE = "";
+  // Auto-detect: if the page is opened as a local file (file:// protocol),
+  // point to the local FastAPI server. If served by FastAPI (same origin),
+  // use "" so requests go to the same host. For Render deployment, set this
+  // to your backend URL, e.g. "https://mental-health-predictor.onrender.com".
+  const API_BASE = window.location.protocol === "file:"
+    ? "http://127.0.0.1:8000"
+    : "";
 
   const form         = document.getElementById("predict-form");
   const submitBtn    = document.getElementById("submit-btn");
