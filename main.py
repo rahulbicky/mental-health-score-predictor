@@ -59,10 +59,11 @@ class PredictionResponse(BaseModel):
 
 
 # ─── Routes ─────────────────────────────────────────────────────────────────
-@app.get("/", tags=["General"])
+@app.get("/", include_in_schema=False)
 def root():
-    """API root — confirms the service is alive."""
-    return {"message": "Mental Health Score Predictor API is running. Visit /docs for the interactive API reference."}
+    """Serve the frontend entry point."""
+    index = BASE_DIR / "index.html"
+    return FileResponse(str(index))
 
 
 @app.get("/health", tags=["General"])
